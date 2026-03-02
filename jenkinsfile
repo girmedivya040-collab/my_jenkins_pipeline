@@ -2,14 +2,18 @@ pipeline {
     agent any
 
     tools {
-        nodejs "NodeJS"   // Make sure NodeJS tool is configured in Jenkins
+        nodejs "Node18"
+    }
+
+    environment {
+        PORT = "3000"
     }
 
     stages {
 
-        stage('Clone') {
+        stage('Clone Repository') {
             steps {
-                git 'https://github.com/yourusername/shoppro.git'
+                git 'https://github.com/YOUR_USERNAME/shoppro.git'
             }
         }
 
@@ -19,16 +23,36 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Build (Optional)') {
             steps {
-                sh 'npm test || true'
+                sh 'echo "No build step required for simple Express app"'
             }
         }
 
-        stage('Deploy') {
+        stage('Stop Old App') {
             steps {
-                sh 'nohup npm start > app.log 2>&1 &'
+                sh '''
+                pkill -f "node server.js" || true
+                '''
+            }
+        }
+
+        stage('Start Application') {
+            steps {
+                sh '''
+                nohup node server.js > app.log 2>&1 &
+                '''
             }
         }
     }
+
+    post {
+        success {
+            echo "Application Deployed Successfully 🚀"
+        }
+        failure {
+            echo "Deployment Failed ❌"
+        }
+    }
 }
+            
