@@ -1,24 +1,33 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs "NodeJS"   // Make sure NodeJS tool is configured in Jenkins
+    }
+
     stages {
+
+        stage('Clone') {
+            steps {
+                git 'https://github.com/yourusername/shoppro.git'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
-                // Installs Express and other packages listed in package.json
                 sh 'npm install'
             }
         }
-        stage('Lint/Test') {
+
+        stage('Test') {
             steps {
-                // Placeholder for tests
-                sh 'npm test'
+                sh 'npm test || true'
             }
         }
+
         stage('Deploy') {
             steps {
-                // Example: Running the app in the background
-                // In a real production setup, you'd use PM2 or Docker
-                sh 'nohup npm start &'
+                sh 'nohup npm start > app.log 2>&1 &'
             }
         }
     }
