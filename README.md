@@ -20,7 +20,7 @@ EOF
 
 # Create README.md
 cat > README.md << 'EOF'
-# 🌐 Static Website Project
+#  Static Website Project
 
 This is a simple static website built using:
 
@@ -31,7 +31,7 @@ This is a simple static website built using:
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 
 ### Install dependencies
 npm install
@@ -44,7 +44,7 @@ http://localhost:3000
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 index.html  
 style.css  
@@ -55,6 +55,6 @@ README.md
 
 ---
 
-## 👩‍💻 Author
+## Author
 Divya Girme
 EOF
