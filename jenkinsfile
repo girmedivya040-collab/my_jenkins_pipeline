@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                // Installs Express and other packages listed in package.json
+                sh 'npm install'
+            }
+        }
+        stage('Lint/Test') {
+            steps {
+                // Placeholder for tests
+                sh 'npm test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // Example: Running the app in the background
+                // In a real production setup, you'd use PM2 or Docker
+                sh 'nohup npm start &'
+            }
+        }
+    }
+}
